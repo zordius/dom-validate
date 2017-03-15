@@ -1,0 +1,19 @@
+{
+  "name": "dom-validate",
+  "version": "0.0.1",
+  "description": "A tool to check required/refused DOM nodes",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zordius/dom-validate.git"
+  },
+  "author": "zordius@yahoo-inc.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zordius/dom-validate/issues"
+  },
+  "homepage": "https://github.com/zordius/dom-validate#readme"
+}

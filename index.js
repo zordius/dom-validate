@@ -4,7 +4,7 @@ var request = require('request');
 var domValidate = {
     error: function (msg, err) {
         console.error(msg);
-        console.error(err);
+        err && console.error(err);
     },
     receiveRequest: function (config, callback) {
         request(config, function (err, res, body) {
@@ -37,8 +37,20 @@ var domValidate = {
             options.require.forEach(function (sel) {
                 var N = DOM(sel);
                 if (N.length == 0) {
-                    domValidate.error('!ERROR: required ' + sel + ' not found.');
+                    domValidate.error('!ERROR: required element ' + sel + ' not found.');
                 } else {
+                    if (options.verbose) {
+                        console.log(sel + ':' + N.html());
+                    }
+                }
+            });
+        }
+
+        if (options.refuse && options.refuse.forEach && options.refuse.forEach.call) {
+            options.refuse.forEach(function (sel) {
+                var N = DOM(sel);
+                if (N.length > 0) {
+                    domValidate.error('!ERROR: refused element ' + sel + ' found (' + N.length + ').');
                     if (options.verbose) {
                         console.log(sel + ':' + N.html());
                     }

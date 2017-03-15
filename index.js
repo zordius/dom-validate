@@ -1,4 +1,5 @@
 var cheerio = require('cheerio');
+var request = require('request');
 
 var domValidate = {
     error: function (msg, err) {
@@ -11,7 +12,10 @@ var domValidate = {
         });
     },
     receiveURL: function (url, callback) {
-        domValidate.receiveRequest({url: url}, callback);
+        domValidate.receiveRequest({
+            url: url,
+            gzip: true
+        }, callback);
     },
     validateURL: function (url, options) {
         domValidate.receiveURL(url, function (err, html) {
@@ -27,6 +31,19 @@ var domValidate = {
 
         if (!options) {
             return domValidate.error('!ERROR: call .validateHTML() without options');
+        }
+
+        if (options.require && options.require.forEach && options.require.forEach.call) {
+            options.require.forEach(function (sel) {
+                var N = DOM(sel);
+                if (N.length == 0) {
+                    domValidate.error('!ERROR: required ' + sel + ' not found.');
+                } else {
+                    if (options.verbose) {
+                        console.log(sel + ':' + N.html());
+                    }
+                }
+            });
         }
     }
 };

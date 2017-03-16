@@ -34,7 +34,7 @@ if (argv.b && !argv.c) {
 
 if (argv.c) {
     DV.validateByYaml(argv.c, {
-        base: argv.b,
+        baseURL: argv.b,
         verbose: argv.v,
         exit: true
     });

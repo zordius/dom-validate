@@ -24,7 +24,13 @@ var domValidate = {
         }, callback);
     },
     validateURL: function (url, options) {
-        domValidate.receiveURL(url, function (err, html) {
+        var U = options ? options.baseURL : '';
+
+        if (url.match(/^https?:/)) {
+            U = '';
+        }
+
+        domValidate.receiveURL((U || '') + url, function (err, html) {
             if (err) {
                 domValidate.error('!ERROR: when get url ' + url, err);
             } else {
@@ -75,7 +81,9 @@ var domValidate = {
     },
     validateByYaml: function (file, options) {
         var yaml = require('js-yaml').safeLoad(require('fs').readFileSync(file, 'utf8'));
-        console.log(yaml);
+        Object.keys(yaml).forEach(function (key) {
+            domValidate.validateURL(key, Object.assign(yaml[key], options));
+        });
     }
 };
 

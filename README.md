@@ -22,9 +22,9 @@ node-validate -u 'https://us.yahoo.com/' -n 'a[href=""]'
 
 ## BATCH check example
 
-Try this command: `node-validate -c test.yaml -b https://tw.search.yahoo.com`
+Try this command: `node-validate -c sample.yaml -b https://tw.search.yahoo.com`
 
-The content of test.yaml is:
+The content of <a href="sample.yaml">sample.yaml</a> can be:
 ```yaml
 # do one check for one URL
 http://google.com:

@@ -7,5 +7,6 @@ if (argv.u && (argv.r || argv.n)) {
         require: argv.r ? [argv.r] : undefined,
         refuse: argv.n ? [argv.n] : undefined,
         verbose: argv.v
+        exit: true
     });
 }

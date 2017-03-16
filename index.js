@@ -28,8 +28,10 @@ var domValidate = {
     },
     validateHTML: function (html, options) {
         var DOM = cheerio.load(html);
+        ver error = 0;
 
         if (!options) {
+            error++;
             return domValidate.error('!ERROR: call .validateHTML() without options');
         }
 
@@ -37,6 +39,7 @@ var domValidate = {
             options.require.forEach(function (sel) {
                 var N = DOM(sel);
                 if (N.length == 0) {
+                    error++;
                     domValidate.error('!ERROR: required element ' + sel + ' not found.');
                 } else {
                     if (options.verbose) {
@@ -50,12 +53,17 @@ var domValidate = {
             options.refuse.forEach(function (sel) {
                 var N = DOM(sel);
                 if (N.length > 0) {
+                    error++;
                     domValidate.error('!ERROR: refused element ' + sel + ' found (' + N.length + ').');
                     if (options.verbose) {
                         console.log(sel + ':' + N.html());
                     }
                 }
             });
+        }
+
+        if (error && options.exit) {
+            process.exit(error);
         }
     }
 };

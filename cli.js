@@ -31,3 +31,11 @@ if (argv.u && (argv.r || argv.n)) {
 if (argv.b && !argv.c) {
     DV.error('-b should be used with the -c option');
 }
+
+if (argv.c) {
+    DV.validateByYaml(argv.c, {
+        base: argv.b,
+        verbose: argv.v,
+        exit: true
+    });
+}

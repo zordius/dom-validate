@@ -23,17 +23,17 @@ node-validate -u 'https://us.yahoo.com/' -n 'a[href=""]'
 ## BATCH check yaml file example
 ```yaml
 # do one check for one URL
-http://google.com
+http://google.com:
   require: .lsb
 
 # do 2 required element checks for the URL
-http://us.yahoo.com
+http://us.yahoo.com:
   require:
     - body > div
     - form
 
 # do many required and refused element check for the URL
-/search?p=test
+/search?p=test:
   require:
     - body > div
     - form button

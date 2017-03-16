@@ -2,9 +2,15 @@ var cheerio = require('cheerio');
 var request = require('request');
 
 var domValidate = {
-    error: function (msg, err) {
+    error: function (msg, err, exit) {
         console.error(msg);
         err && console.error(err);
+        domValidate.exit(exit, 1);
+    },
+    exit: function (options, code) {
+        if (options && options.exit) {
+            process.exit(code);
+        }
     },
     receiveRequest: function (config, callback) {
         request(config, function (err, res, body) {
@@ -32,7 +38,7 @@ var domValidate = {
 
         if (!options) {
             error++;
-            return domValidate.error('!ERROR: call .validateHTML() without options');
+            return domValidate.error('!ERROR: call .validateHTML() without options', undefined, true);
         }
 
         if (options.require && options.require.forEach && options.require.forEach.call) {
@@ -41,6 +47,7 @@ var domValidate = {
                 if (N.length == 0) {
                     error++;
                     domValidate.error('!ERROR: required element ' + sel + ' not found.');
+                    domValidate.exit(options);
                 } else {
                     if (options.verbose) {
                         console.log(sel + ':' + N.html());
@@ -62,9 +69,13 @@ var domValidate = {
             });
         }
 
-        if (error && options.exit) {
-            process.exit(error);
+        if (error) {
+            domValidate.exit(error);
         }
+    },
+    validateByYaml: function (file, options) {
+        var yaml = require('js-yaml').safeLoad(require('fs').readFileSync(file, 'utf8'));
+        console.log(yaml);
     }
 };
 

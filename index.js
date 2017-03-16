@@ -28,7 +28,7 @@ var domValidate = {
     },
     validateHTML: function (html, options) {
         var DOM = cheerio.load(html);
-        ver error = 0;
+        var error = 0;
 
         if (!options) {
             error++;

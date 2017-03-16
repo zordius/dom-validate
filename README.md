@@ -20,7 +20,11 @@ node-validate -u 'https://us.yahoo.com/' -n 'a[href=""]'
 * -c [BATCH] specify a local yaml config file to do batch check
 * -b [BATCH] specify base URL
 
-## BATCH check yaml file example
+## BATCH check example
+
+Try this command: `node-validate -c test.yaml -b https://tw.search.yahoo.com`
+
+The content of test.yaml is:
 ```yaml
 # do one check for one URL
 http://google.com:

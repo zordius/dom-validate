@@ -17,3 +17,26 @@ node-validate -u 'https://us.yahoo.com/' -n 'a[href=""]'
 * -r specify the css selector for the required element
 * -n specify the css selector for the refused element
 * -v show verbose message for the css selector selected elements
+* -c [BATCH] specify a local yaml config file to do batch check
+* -b [BATCH] specify base URL
+
+## BATCH check yaml file example
+```yaml
+# do one check for one URL
+http://google.com
+  require: .lsb
+
+# do 2 required element checks for the URL
+http://us.yahoo.com
+  require:
+    - body > div
+    - form
+
+# do many required and refused element check for the URL
+/search?p=test
+  require:
+    - body > div
+    - form button
+  refuse:
+    - 'a[href=""]'
+```

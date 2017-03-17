@@ -2,13 +2,13 @@
 
 A tool to check required/refused DOM nodes 
 
-[![Build Status](https://travis-ci.org/zordius/dom-validate.svg?branch=master)](https://travis-ci.org/zordius/dom-validate)
+[![npm version](https://img.shields.io/npm/v/dom-validate.svg)](https://www.npmjs.org/package/dom-validate) [![Build Status](https://travis-ci.org/zordius/dom-validate.svg?branch=master)](https://travis-ci.org/zordius/dom-validate)
 
 ## Usage
 
 ```shell
 npm install dom-validate
-# Check for Google page, there should be an .lsb element
+# Check for Google page, there should be a .lsb element
 node-validate -u 'https://google.com/' -r '.lsb'
 
 # Check for Yahoo page, there should not be any empty link

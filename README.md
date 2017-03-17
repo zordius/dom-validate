@@ -7,7 +7,9 @@ A tool to check required/refused DOM nodes
 ## Usage
 
 ```shell
+# Install
 npm install dom-validate
+
 # Check for Google page, there should be a .lsb element
 node-validate -u 'https://google.com/' -r '.lsb'
 

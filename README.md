@@ -1,5 +1,8 @@
 # dom-validate
+
 A tool to check required/refused DOM nodes 
+
+[![Build Status](https://travis-ci.org/zordius/dom-validate.svg?branch=master)]
 
 ## Usage
 

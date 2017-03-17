@@ -19,11 +19,13 @@ var util = {
 
         if (error) {
             util.error(msg);
+            util.callback(sel, N, req, options, msg);
             util.exit(options);
         } else {
             if (options.verbose) {
                 console.log('OK: ' + msg);
             }
+            util.callback(sel, N, req, options);
         }
 
         if (N.length && (options.verbose > 1)) {
@@ -47,6 +49,15 @@ var util = {
         }
 
         return util.check(dom, options[key], req, options);
+    },
+    callback: function (sel, node, req, options, msg) {
+        if (options.callback && options.callback.call) {
+            options.callback.call(msg, Object.assign({
+                selector: sel,
+                nodes: node,
+                task: req ? 'require' : 'refuse'
+            }, options));
+        }
     }
 };
 

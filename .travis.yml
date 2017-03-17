@@ -6,6 +6,7 @@ node_js:
 script:
   - npm run lint
   - npm run test
+sudo: required
 cache:
   directories:
     - node_modules

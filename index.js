@@ -11,6 +11,21 @@ var util = {
         if (options && options.exit) {
             process.exit(code);
         }
+    },
+    check: function (dom, sel, req, options) {
+        var N = dom(sel);
+        var error = (N.length > 0) ^ req;
+
+        if (error) {
+            util.error((N.length ? 'refused' : 'required') + ' element "' + sel + (N.length ? '' : ' not') + '" found.');
+            util.exit(options);
+        }
+
+        if (N.length && options.verbose) {
+            console.log(sel + ':' + N.html());
+        }
+
+        return error ? 1 : 0;
     }
 };
 
@@ -52,29 +67,13 @@ var domValidate = {
 
         if (options.require && options.require.forEach && options.require.forEach.call) {
             options.require.forEach(function (sel) {
-                var N = DOM(sel);
-                if (N.length == 0) {
-                    error++;
-                    util.error('required element ' + sel + ' not found.');
-                    domValidate.exit(options);
-                } else {
-                    if (options.verbose) {
-                        console.log(sel + ':' + N.html());
-                    }
-                }
+                error += util.check(DOM, sel, true, options);
             });
         }
 
         if (options.refuse && options.refuse.forEach && options.refuse.forEach.call) {
             options.refuse.forEach(function (sel) {
-                var N = DOM(sel);
-                if (N.length > 0) {
-                    error++;
-                    util.error('refused element ' + sel + ' found (' + N.length + ').');
-                    if (options.verbose) {
-                        console.log(sel + ':' + N.html());
-                    }
-                }
+                error += util.check(DOM, sel, false, options);
             });
         }
 

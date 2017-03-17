@@ -9,7 +9,8 @@ var usage = function () {
     console.log('* -u specify a url string to verify');
     console.log('* -r specify the css selector for the required element');
     console.log('* -n specify the css selector for the refused element');
-    console.log('* -v show verbose message for the css selector selected elements');
+    console.log('* -v show verbose message for the successed cases');
+    console.log('* -v=2 show verbose message for the html of css selector selected elements');
     console.log('* -c [BATCH] specify a local yaml config file to do batch check');
     console.log('* -b [BATCH] specify base URL');
     process.exit();

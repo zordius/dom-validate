@@ -15,17 +15,38 @@ var util = {
     check: function (dom, sel, req, options) {
         var N = dom(sel);
         var error = (N.length > 0) ^ req;
+        var msg = (req ? 'required' : 'refused') + ' element "' + sel + '"' + (N.length ? '' : ' not') + ' found' + (N.length ? '(' + N.length + ')' : '');
 
         if (error) {
-            util.error((N.length ? 'refused' : 'required') + ' element "' + sel + (N.length ? '' : ' not') + '" found.');
+            util.error(msg);
             util.exit(options);
+        } else {
+            if (options.verbose) {
+                console.log('OK: ' + msg);
+            }
         }
 
-        if (N.length && options.verbose) {
+        if (N.length && (options.verbose > 1)) {
             console.log(sel + ':' + N.html());
         }
 
         return error ? 1 : 0;
+    },
+    checks: function (dom, key, req, options) {
+        var error = 0;
+
+        if (!options[key]) {
+            return 0;
+        }
+
+        if (options[key].forEach && options[key].forEach.call) {
+            options[key].forEach(function (sel) {
+                error += util.check(dom, sel, req, options);
+            });
+            return error;
+        }
+
+        return util.check(dom, options[key], req, options);
     }
 };
 
@@ -67,17 +88,12 @@ var domValidate = {
             return util.error('call .validateHTML() without options', undefined, true);
         }
 
-        if (options.require && options.require.forEach && options.require.forEach.call) {
-            options.require.forEach(function (sel) {
-                error += util.check(DOM, sel, true, options);
-            });
+        if (options.url && options.verbose) {
+            console.log('# check for ' + options.url);
         }
 
-        if (options.refuse && options.refuse.forEach && options.refuse.forEach.call) {
-            options.refuse.forEach(function (sel) {
-                error += util.check(DOM, sel, false, options);
-            });
-        }
+        error += util.checks(DOM, 'require', true, options);
+        error += util.checks(DOM, 'refuse', false, options);
 
         if (error) {
             util.exit(error);

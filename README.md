@@ -16,7 +16,8 @@ node-validate -u 'https://us.yahoo.com/' -n 'a[href=""]'
 * -u specify a url string to verify
 * -r specify the css selector for the required element
 * -n specify the css selector for the refused element
-* -v show verbose message for the css selector selected elements
+* -v show verbose message for the successed cases
+* -v=2 show verbose message for the html of css selector selected elements
 * -c [BATCH] specify a local yaml config file to do batch check
 * -b [BATCH] specify base URL
 

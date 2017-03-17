@@ -6,7 +6,7 @@
   "main": "index.js",
   "scripts": {
     "lint": "eslint cli.js index.js test/*.js",
-    "functional": "ls -al;./cli.js -c sample.yaml -b https://tw.search.yahoo.com -v=2",
+    "functional": "node cli.js -c sample.yaml -b https://tw.search.yahoo.com -v=2",
     "test": "mocha"
   },
   "repository": {

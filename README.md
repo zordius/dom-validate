@@ -11,10 +11,10 @@ A tool to check required/refused DOM nodes
 npm install dom-validate
 
 # Check for Google page, there should be a .lsb element
-node-validate -u 'https://google.com/' -r '.lsb'
+node-validate -u 'https://google.com/' -r '.lsb' -v=2
 
 # Check for Yahoo page, there should not be any empty link
-node-validate -u 'https://us.yahoo.com/' -n 'a[href=""]'
+node-validate -u 'https://us.yahoo.com/' -n 'a[href=""]' -v=2
 ```
 
 ## Command line options
@@ -26,6 +26,8 @@ node-validate -u 'https://us.yahoo.com/' -n 'a[href=""]'
 * **-v=3** show verbose message for the html of css selector selected elements
 * **-c** [BATCH] specify a local yaml config file to do batch check
 * **-b** [BATCH] specify base URL
+
+The exit code will be the number of failed cases.
 
 ## BATCH check example
 

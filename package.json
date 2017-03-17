@@ -6,7 +6,7 @@
   "main": "index.js",
   "scripts": {
     "lint": "eslint cli.js index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "./cli.js -c sample.yaml -b https://tw.search.yahoo.com -v"
   },
   "repository": {
     "type": "git",

@@ -23,7 +23,7 @@ node-validate -u 'https://us.yahoo.com/' -n 'a[href=""]'
 
 ## BATCH check example
 
-Try this command: `node-validate -c sample.yaml -b https://tw.search.yahoo.com`
+Try this command: `node-validate -c sample.yaml -b https://tw.search.yahoo.com -v`
 
 The content of <a href="sample.yaml">sample.yaml</a> can be:
 ```yaml
@@ -45,6 +45,20 @@ http://us.yahoo.com:
   refuse:
     - 'a[href=""]'
 ```
+
+Sample output:
+```
+# check for http://google.com
+OK: required element ".lsb" found(2)
+# check for http://us.yahoo.com
+OK: required element "body > div" found(2)
+OK: required element "form" found(1)
+# check for https://tw.search.yahoo.com/search?p=test
+OK: required element "body > div" found(1)
+OK: required element "form button" found(2)
+OK: refused element "a[href=""]" not found
+```
+
 
 ## node module usage
 

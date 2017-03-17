@@ -14,7 +14,7 @@ var usage = function () {
     console.log('* -c [BATCH] specify a local yaml config file to do batch check');
     console.log('* -b [BATCH] specify base URL');
     process.exit();
-}
+};
 
 if (argv.h) {
     usage();

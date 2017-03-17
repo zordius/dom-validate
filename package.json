@@ -5,6 +5,7 @@
   "bin": "cli.js",
   "main": "index.js",
   "scripts": {
+    "lint": "eslint cli.js index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

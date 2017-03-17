@@ -16,7 +16,7 @@ node-validate -u 'https://us.yahoo.com/' -n 'a[href=""]'
 * -u specify a url string to verify
 * -r specify the css selector for the required element
 * -n specify the css selector for the refused element
-* -v show verbose message for the successed cases
+* -v show verbose message for the success cases
 * -v=2 show verbose message for the html of css selector selected elements
 * -c [BATCH] specify a local yaml config file to do batch check
 * -b [BATCH] specify base URL
@@ -74,3 +74,29 @@ DV.validateURL(urlString, options);
 // validate by a yaml config file
 DV.validateByYaml(yamlFileName, options);
 ```
+
+**Options**
+```javascript
+var options = {
+    url: 'http://sample.com',                  // URL for error or debug message
+    baseURL: 'https://test.com',               // Will be used for relative URL when call .validateByYaml()
+    require: 'body',                           // String or Array of CSS selector to check
+    refuse: ['a[href=""]', 'img[src=""]'],     // String or Array of CSS selector to check
+    exit: false,                               // true to end process when test done, the exit code will be number of failed case
+    verbose: false,                            // true to show message for success cases
+                                               // 2 to show the html of css selector selected elements
+    callback: function (err, options) {        // Will be executed for every cases
+        if (err) {
+            // err will be the error message string when the case failed
+            console.log('ERROR!' + err);
+            return;
+        } else {
+            // success case
+            connsole.log('OK!');
+        }
+        // You can get the whole options object in callback function, plus:
+        // options.selector will be the CSS selector of current case
+        // options.nodes will be the selected nodes (check cheerio document)
+        // options.task will be 'require' or 'refuse'
+    }
+};

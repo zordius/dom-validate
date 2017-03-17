@@ -18,17 +18,17 @@ var util = {
         var msg = (req ? 'required' : 'refused') + ' element "' + sel + '"' + (N.length ? '' : ' not') + ' found' + (N.length ? '(' + N.length + ')' : '');
 
         if (error) {
-            util.error(msg);
+            options.verbose && util.error(msg);
             util.callback(sel, N, req, options, msg);
             util.exit(options);
         } else {
-            if (options.verbose) {
+            if (options.verbose > 1) {
                 console.log('OK: ' + msg);
             }
             util.callback(sel, N, req, options);
         }
 
-        if (N.length && (options.verbose > 1)) {
+        if (N.length && (options.verbose > 2)) {
             console.log(sel + ':' + N.html());
         }
 
@@ -83,7 +83,7 @@ var domValidate = {
         U = (U || '') + url;
 
         domValidate.receiveURL(U, function (err, html) {
-            if (err) {
+            if (err && options.verbose) {
                 util.error('when get url ' + U, err);
             } else {
                 domValidate.validateHTML(html, Object.assign({url: U}, options));
@@ -99,7 +99,7 @@ var domValidate = {
             return util.error('call .validateHTML() without options', undefined, true);
         }
 
-        if (options.url && options.verbose) {
+        if (options.url && (options.verbose > 1)) {
             console.log('# check for ' + options.url);
         }
 

@@ -1,17 +1,20 @@
 var cheerio = require('cheerio');
 var request = require('request');
 
-var domValidate = {
+var util = {
     error: function (msg, err, exit) {
         console.error('!!ERROR: ' + msg);
         err && console.error(err);
-        domValidate.exit(exit, 1);
+        util.exit(exit, 1);
     },
     exit: function (options, code) {
         if (options && options.exit) {
             process.exit(code);
         }
-    },
+    }
+};
+
+var domValidate = {
     receiveRequest: function (config, callback) {
         request(config, function (err, res, body) {
             callback(err, body);
@@ -32,7 +35,7 @@ var domValidate = {
 
         domValidate.receiveURL((U || '') + url, function (err, html) {
             if (err) {
-                domValidate.error('when get url ' + url, err);
+                util.error('when get url ' + url, err);
             } else {
                 domValidate.validateHTML(html, Object.assign({url: url}, options));
             }
@@ -44,7 +47,7 @@ var domValidate = {
 
         if (!options) {
             error++;
-            return domValidate.error('call .validateHTML() without options', undefined, true);
+            return util.error('call .validateHTML() without options', undefined, true);
         }
 
         if (options.require && options.require.forEach && options.require.forEach.call) {
@@ -52,7 +55,7 @@ var domValidate = {
                 var N = DOM(sel);
                 if (N.length == 0) {
                     error++;
-                    domValidate.error('required element ' + sel + ' not found.');
+                    util.error('required element ' + sel + ' not found.');
                     domValidate.exit(options);
                 } else {
                     if (options.verbose) {
@@ -67,7 +70,7 @@ var domValidate = {
                 var N = DOM(sel);
                 if (N.length > 0) {
                     error++;
-                    domValidate.error('refused element ' + sel + ' found (' + N.length + ').');
+                    util.error('refused element ' + sel + ' found (' + N.length + ').');
                     if (options.verbose) {
                         console.log(sel + ':' + N.html());
                     }
@@ -76,7 +79,7 @@ var domValidate = {
         }
 
         if (error) {
-            domValidate.exit(error);
+            util.exit(error);
         }
     },
     validateByYaml: function (file, options) {

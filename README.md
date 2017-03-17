@@ -44,3 +44,18 @@ http://us.yahoo.com:
   refuse:
     - 'a[href=""]'
 ```
+
+## node module usage
+
+```javascript
+var DV = require('dom-validate');
+
+// validate by a HTML string
+DV.validateHTML(htmlString, options);
+
+// validate by an URL
+DV.validateURL(urlString, options);
+
+// validate by a yaml config file
+DV.validateByYaml(yamlFileName, options);
+```

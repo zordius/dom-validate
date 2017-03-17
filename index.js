@@ -109,6 +109,8 @@ var domValidate = {
         if (error) {
             util.exit(error);
         }
+
+        return error;
     },
     validateByYaml: function (file, options) {
         var yaml = require('js-yaml').safeLoad(require('fs').readFileSync(file, 'utf8'));

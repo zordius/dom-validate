@@ -48,11 +48,13 @@ var domValidate = {
             U = '';
         }
 
-        domValidate.receiveURL((U || '') + url, function (err, html) {
+        U = (U || '') + url;
+
+        domValidate.receiveURL(U, function (err, html) {
             if (err) {
-                util.error('when get url ' + url, err);
+                util.error('when get url ' + U, err);
             } else {
-                domValidate.validateHTML(html, Object.assign({url: url}, options));
+                domValidate.validateHTML(html, Object.assign({url: U}, options));
             }
         });
     },

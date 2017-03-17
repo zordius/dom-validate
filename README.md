@@ -2,7 +2,7 @@
 
 A tool to check required/refused DOM nodes 
 
-[![Build Status](https://travis-ci.org/zordius/dom-validate.svg?branch=master)]
+[![Build Status](https://travis-ci.org/zordius/dom-validate.svg?branch=master)](https://travis-ci.org/zordius/dom-validate)
 
 ## Usage
 

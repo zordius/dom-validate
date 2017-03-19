@@ -42,8 +42,8 @@ if (argv.b && !argv.c) {
     error('-b should be used with the -c option');
 }
 
-if (argv.b && !argv.c) {
-    error('-b should be used with the -c option');
+if (argv.t && !argv.c) {
+    error('-t should be used with the -c option');
 }
 
 if (argv.c) {

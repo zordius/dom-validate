@@ -7,6 +7,14 @@ var util = {
         err && console.error(err);
         util.exit(exit, 1);
     },
+    debug: function (msg, lvl, options) {
+        if (options.report) {
+            return;
+        }
+        if (options.verbose >= lvl) {
+            console.log(msg);
+        }
+    },
     exit: function (options, code) {
         if (options && options.exit) {
             process.exit(code);
@@ -22,14 +30,12 @@ var util = {
             util.callback(sel, N, req, options, msg);
             util.exit(options);
         } else {
-            if (options.verbose > 1) {
-                console.log('OK: ' + msg);
-            }
+            util.debug('OK: ' + msg, 2, options);
             util.callback(sel, N, req, options);
         }
 
-        if (N.length && (options.verbose > 2)) {
-            console.log(sel + ':' + N.html());
+        if (N.length) {
+            util.debug(sel + ':' + N.html(), 3, options);
         }
 
         return error ? 1 : 0;
@@ -99,10 +105,7 @@ var domValidate = {
             return util.error('call .validateHTML() without options', undefined, true);
         }
 
-        if (options.url && (options.verbose > 1)) {
-            console.log('# check for ' + options.url);
-        }
-
+        util.debug('# check for ' + options.url, 2, options);
         error += util.checks(DOM, 'require', true, options);
         error += util.checks(DOM, 'refuse', false, options);
 

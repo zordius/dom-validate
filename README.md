@@ -26,6 +26,7 @@ node-validate -u 'https://us.yahoo.com/' -n 'a[href=""]' -v=2
 * **-v=3** show verbose message for the html of css selector selected elements
 * **-c** [BATCH] specify a local yaml config file to do batch check
 * **-b** [BATCH] specify base URL
+* **-t** [TEST REPORT] output result as <a href="https://testanything.org/">TAP</a> format
 
 The exit code will be the number of failed cases.
 
@@ -92,6 +93,7 @@ var options = {
     refuse: ['a[href=""]', 'img[src=""]'],     // String or Array of CSS selector to check
     exit: false,                               // true to end process when test done, the exit code will be number of failed case
     verbose: false,                            // true to show message for success cases
+    report: false,                             // true to output TAP report
                                                // 2 to show the html of css selector selected elements
     callback: function (err, options) {        // Will be executed for every cases
         if (err) {

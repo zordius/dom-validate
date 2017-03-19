@@ -14,6 +14,7 @@ var usage = function () {
     console.log('* -v=2 show verbose message for the html of css selector selected elements');
     console.log('* -c [BATCH] specify a local yaml config file to do batch check');
     console.log('* -b [BATCH] specify base URL');
+    console.log('* -t [TEST REPORT] output result as TAP format');
     process.exit();
 };
 
@@ -26,6 +27,7 @@ if (argv.u && (argv.r || argv.n)) {
         require: argv.r ? [argv.r] : undefined,
         refuse: argv.n ? [argv.n] : undefined,
         verbose: argv.v,
+        report: argv.t,
         exit: true
     });
 }
@@ -38,6 +40,7 @@ if (argv.c) {
     DV.validateByYaml(argv.c, {
         baseURL: argv.b,
         verbose: argv.v,
+        report: argv.t,
         exit: true
     });
 }

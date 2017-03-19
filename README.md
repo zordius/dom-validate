@@ -26,7 +26,7 @@ node-validate -u 'https://us.yahoo.com/' -n 'a[href=""]' -v=2
 * **-v=3** show verbose message for the html of css selector selected elements
 * **-c** [BATCH] specify a local yaml config file to do batch check
 * **-b** [BATCH] specify base URL
-* **-t** [TEST REPORT] output result as <a href="https://testanything.org/">TAP</a> format
+* **-t** [BATCH] output result as <a href="https://testanything.org/">TAP</a> format
 
 The exit code will be the number of failed cases.
 

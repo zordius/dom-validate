@@ -18,6 +18,12 @@ var usage = function () {
     process.exit();
 };
 
+var error = function (E) {
+    console.error('!!ERROR: ' + E);
+    process.exit(1);
+};
+
+
 if (argv.h) {
     usage();
 }
@@ -33,7 +39,11 @@ if (argv.u && (argv.r || argv.n)) {
 }
 
 if (argv.b && !argv.c) {
-    DV.error('-b should be used with the -c option');
+    error('-b should be used with the -c option');
+}
+
+if (argv.b && !argv.c) {
+    error('-b should be used with the -c option');
 }
 
 if (argv.c) {

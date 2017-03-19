@@ -117,9 +117,13 @@ var domValidate = {
     },
     validateByYaml: function (file, options) {
         var yaml = require('js-yaml').safeLoad(require('fs').readFileSync(file, 'utf8'));
+        options.total = 0;
+        options.done = false;
         Object.keys(yaml).forEach(function (key) {
+            options.total++;
             domValidate.validateURL(key, Object.assign(yaml[key], options));
         });
+        options.done = true;
     }
 };
 

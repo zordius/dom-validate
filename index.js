@@ -5,7 +5,7 @@ var util = {
     error: function (msg, err, exit) {
         console.error('!!ERROR: ' + msg);
         err && console.error(err);
-        util.exit(exit, 1);
+        util.exit({exit: exit}, 1);
     },
     debug: function (msg, lvl, options) {
         if (options.report) {
@@ -30,7 +30,6 @@ var util = {
         if (error) {
             options.verbose && util.error(msg);
             util.callback(sel, N, req, options, msg);
-            util.exit(options);
         } else {
             util.debug('OK: ' + msg, 2, options);
             util.callback(sel, N, req, options);
@@ -140,8 +139,8 @@ var domValidate = {
 
         util.tap_reporter(undefined, false, options);
 
-        if (error) {
-            util.exit(error);
+        if (error && ((!options.tests) || (options.tests.suites === options.tests.current))) {
+            util.exit(options, error);
         }
 
         return error;

@@ -15,6 +15,9 @@ node-validate -u 'https://google.com/' -r '.lsb' -v=2
 
 # Check for Yahoo page, there should not be any empty link
 node-validate -u 'https://us.yahoo.com/' -n 'a[href=""]' -v=2
+
+# Yes, there should not be any broken images...check again
+node-validate -u 'https://us.yahoo.com/' -n 'img[src=""]' -v=2
 ```
 
 ## Command line options

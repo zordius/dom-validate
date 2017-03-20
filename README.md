@@ -8,7 +8,7 @@ A tool to check required/refused DOM nodes, can also output TAP or JUnit reports
 
 ```shell
 # Install
-npm install dom-validate
+npm install dom-validate -g
 
 # Check for Google page, there should be a .lsb element
 node-validate -u 'https://google.com/' -r '.lsb' -v=2

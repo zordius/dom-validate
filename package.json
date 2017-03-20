@@ -1,7 +1,7 @@
 {
   "name": "dom-validate",
-  "version": "0.0.1",
-  "description": "A tool to check required/refused DOM nodes",
+  "version": "0.1.0",
+  "description": "A tool to check required/refused DOM nodes, can also output TAP or JUnit reports",
   "bin": "cli.js",
   "main": "index.js",
   "scripts": {

@@ -25,6 +25,8 @@ var util = {
         var error = (N.length > 0) ^ req;
         var msg = (req ? 'required' : 'refused') + ' element "' + sel + '"' + (N.length ? '' : ' not') + ' found' + (N.length ? '(' + N.length + ')' : '');
 
+        util.tap_reporter(msg, !error, options);
+
         if (error) {
             options.verbose && util.error(msg);
             util.callback(sel, N, req, options, msg);
@@ -56,6 +58,23 @@ var util = {
 
         return util.check(dom, options[key], req, options);
     },
+    report: function (msg, options) {
+        if (options.report) {
+            console.log(msg);
+        }
+    },
+    tap_reporter: function (msg, success, options) {
+        if (!msg) {
+            if (options.tests.suites === options.tests.current) {
+                util.report('1..' + options.tests.cases, options);
+            }
+            return;
+        }
+
+        options.tests.cases++;
+
+        util.report((success ? '' : 'not ') + 'ok ' + options.tests.cases + ' - ' + msg + ' in ' + options.url, options);
+    },
     callback: function (sel, node, req, options, msg) {
         if (options.callback && options.callback.call) {
             options.callback.call(msg, Object.assign({
@@ -81,18 +100,20 @@ var domValidate = {
     },
     validateURL: function (url, options) {
         var U = options ? options.baseURL : '';
+        var C = {};
 
         if (url.match(/^https?:/)) {
             U = '';
         }
 
-        U = (U || '') + url;
+        C.url = (U || '') + url;
 
-        domValidate.receiveURL(U, function (err, html) {
+        domValidate.receiveURL(C.url, function (err, html) {
+            C.tests = options.tests;
             if (err && options.verbose) {
                 util.error('when get url ' + U, err);
             } else {
-                domValidate.validateHTML(html, Object.assign({url: U}, options));
+                domValidate.validateHTML(html, Object.assign(C, options));
             }
         });
     },
@@ -108,6 +129,9 @@ var domValidate = {
         util.debug('# check for ' + options.url, 2, options);
         error += util.checks(DOM, 'require', true, options);
         error += util.checks(DOM, 'refuse', false, options);
+        options.tests.current++;
+
+        util.tap_reporter(undefined, false, options);
 
         if (error) {
             util.exit(error);
@@ -117,13 +141,15 @@ var domValidate = {
     },
     validateByYaml: function (file, options) {
         var yaml = require('js-yaml').safeLoad(require('fs').readFileSync(file, 'utf8'));
-        options.total = 0;
-        options.done = false;
+        options.tests = {
+            suites: 0,
+            cases: 0,
+            current: 0
+        };
         Object.keys(yaml).forEach(function (key) {
-            options.total++;
+            options.tests.suites++;
             domValidate.validateURL(key, Object.assign(yaml[key], options));
         });
-        options.done = true;
     }
 };
 

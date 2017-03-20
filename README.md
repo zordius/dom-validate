@@ -93,8 +93,9 @@ var options = {
     refuse: ['a[href=""]', 'img[src=""]'],     // String or Array of CSS selector to check
     exit: false,                               // true to end process when test done, the exit code will be number of failed case
     verbose: false,                            // true to show message for success cases
+                                               // 2 to show verbose message for the success cases
+                                               // 3 to show verbose message for the html of css selector selected elements
     report: false,                             // true to output TAP report
-                                               // 2 to show the html of css selector selected elements
     callback: function (err, options) {        // Will be executed for every cases
         if (err) {
             // err will be the error message string when the case failed

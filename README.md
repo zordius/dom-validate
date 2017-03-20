@@ -1,6 +1,6 @@
 # dom-validate
 
-A tool to check required/refused DOM nodes 
+A tool to check required/refused DOM nodes, can also output TAP or JUnit reports
 
 [![npm version](https://img.shields.io/npm/v/dom-validate.svg)](https://www.npmjs.org/package/dom-validate) [![Build Status](https://travis-ci.org/zordius/dom-validate.svg?branch=master)](https://travis-ci.org/zordius/dom-validate)
 

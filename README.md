@@ -75,13 +75,13 @@ OK: refused element "a[href=""]" not found
 
 Try this to save <a href="https://testanything.org/">TAP</a> report file as result.tap:
 ```sh
-node-validate -c sample.yaml -b https://tw.search.yahoo.com -v=2 -t > result.tap
+node-validate -c sample.yaml -b https://tw.search.yahoo.com -t > result.tap
 ```
 
 You may also get <a href="http://junit.org/">JUnit (xUnit)</a> report file by:
 ```sh
 npm install tap-xunit -g
-node-validate -c sample.yaml -b https://tw.search.yahoo.com -v=2 -t | tap-xunit > junit-result.xml
+node-validate -c sample.yaml -b https://tw.search.yahoo.com -t | tap-xunit > junit-result.xml
 ```
 
 ## node module usage

@@ -64,6 +64,10 @@ var util = {
         }
     },
     tap_reporter: function (msg, success, options) {
+        if (!options.tests) {
+            return;
+        }
+
         if (!msg) {
             if (options.tests.suites === options.tests.current) {
                 util.report('1..' + options.tests.cases, options);
@@ -129,7 +133,10 @@ var domValidate = {
         util.debug('# check for ' + options.url, 2, options);
         error += util.checks(DOM, 'require', true, options);
         error += util.checks(DOM, 'refuse', false, options);
-        options.tests.current++;
+
+        if (options.tests) {
+            options.tests.current++;
+        }
 
         util.tap_reporter(undefined, false, options);
 

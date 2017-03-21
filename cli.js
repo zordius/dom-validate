@@ -1,4 +1,4 @@
-#!/usr/local/bin/node
+#!/usr/bin/env node
 var argv = require('yargs').argv;
 var DV = require('.');
 

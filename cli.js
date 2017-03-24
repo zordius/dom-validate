@@ -23,8 +23,7 @@ var error = function (E) {
     process.exit(1);
 };
 
-
-if (argv.h) {
+if (argv.h || !argv.c || !argv.u) {
     usage();
 }
 

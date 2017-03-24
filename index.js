@@ -7,6 +7,11 @@ var util = {
         err && console.error(err);
         util.exit({exit: exit}, 1);
     },
+    exit_all: function (options) {
+        if (options.tests && (options.tests.suites === options.tests.current)) {
+            util.exit(options, options.tests.error);
+        }
+    },
     debug: function (msg, lvl, options) {
         if (options.report) {
             return;
@@ -135,6 +140,7 @@ var domValidate = {
 
         if (options.tests) {
             options.tests.current++;
+            options.tests.error += error;
         }
 
         util.tap_reporter(undefined, false, options);
@@ -143,6 +149,8 @@ var domValidate = {
             util.exit(options, error);
         }
 
+        util.exit_all(options);
+
         return error;
     },
     validateByYaml: function (file, options) {
@@ -150,7 +158,8 @@ var domValidate = {
         options.tests = {
             suites: 0,
             cases: 0,
-            current: 0
+            current: 0,
+            error: 0
         };
         Object.keys(yaml).forEach(function (key) {
             options.tests.suites++;
